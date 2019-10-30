@@ -1,14 +1,232 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Ionic Blank
+      Registration
     </ion-title>
   </ion-toolbar>
 </ion-header>
+ 
+<ion-content padding>
+ 
+  <ion-grid fixed>
+    <ion-row>
+      
+        <ion-item>
+            <ion-label>First Name : </ion-label>
+          <ion-input placeholder="Enter First Name" [(ngModel)]="studentFirstName"></ion-input>
+        </ion-item>
+       
+    </ion-row>
+    <ion-row>
+       
+          <ion-item>
+              <ion-label>Last Name : </ion-label>
+            <ion-input placeholder="Enter Last Name" [(ngModel)]="studentLastName"></ion-input>
+          </ion-item>
+         
+      </ion-row>
+      
+      <ion-row>
+        <!--Start of new Radio button-->
+        
+          <ion-list>
+              <ion-radio-group
+                allow-empty-selection = "true"
+                name="radio-group"
+                (ionChange)="radioGroupChange($event)"
+              >
+                <ion-list-header>
+                  <ion-label>Gender</ion-label>
+                </ion-list-header>
+                <div class='wrapper'>   
+                <ion-item 
+                *ngFor="let item of radio_list" 
+                (ionFocus)="radioFocus()"
+                (ionSelect)="radioSelect($event)"
+                (ionBlur)="radioBlur()"
+                >
+                  <ion-label>{{item.text}}</ion-label>
+                  <ion-radio 
+                  slot="start" 
+                  name="{{item.name}}" 
+                  value="{{item.value}}" 
+                  checked="{{item.checked}}" 
+                  color="{{item.color}}" 
+                  disabled="{{item.disabled}}"
+                  ></ion-radio>
+                </ion-item>
+              </div>
+            
+              </ion-radio-group>
+            </ion-list>
+            
+           
 
-<ion-content>
-  <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
-  </div>
+           
+           
+          
+<!--Start of old Radio button
+
+          <ion-item>
+              <ion-label>Gender</ion-label>
+            </ion-item>
+          <ion-radio-group allow-empty-selection = "true" (ionChange)="onChangeHandler($event)">
+              <ion-item>
+                  <div class='wrapper'>  
+                <ion-label>Male</ion-label>
+                <ion-radio value="Male" [checked]="studentGender==='Male'"></ion-radio>
+                &nbsp;
+              
+              
+                
+                <ion-label>Female</ion-label>
+                <ion-radio value="Female" [checked]="studentGender==='Female'"></ion-radio>
+                &nbsp;
+              
+             
+                
+                  <ion-label>Other</ion-label>
+                  <ion-radio value="Other" [checked]="studentGender==='Other'"></ion-radio>
+                  &nbsp;
+                </div>
+                </ion-item> 
+            </ion-radio-group> 
+            -->
+            <!--<p>{{studentGender}}</p>-->
+  
+      </ion-row>
+  <ion-row> 
+     
+        <ion-item>
+            <ion-label>Age :  </ion-label>
+          <ion-input placeholder="Enter Age" [(ngModel)]="studentAge"></ion-input>
+        </ion-item>
+     
+    </ion-row>
+    <ion-row>
+     
+        <ion-item>
+            <ion-label>Address :  </ion-label>
+          <ion-input placeholder="Enter Address" [(ngModel)]="studentAddress"></ion-input>
+        </ion-item>
+     
+    </ion-row>
+    <ion-row>
+      <ion-item>
+          <ion-label>Mobile Number :  </ion-label>
+        <ion-input placeholder="Enter Mobile Number" [(ngModel)]="studentMobile"></ion-input>
+      </ion-item>
+    </ion-row>
+    <ion-row>
+        <ion-item>
+            <ion-label>Email id :  </ion-label>
+          <ion-input placeholder="Enter Emailid" [(ngModel)]="studentEmail"></ion-input>
+        </ion-item>
+      </ion-row>
+    
+      <!--begining of toggle-->
+       <!-- 
+      <ion-item>
+        <ion-label>Tshirt Size details</ion-label>
+      </ion-item>
+      <div class='wrapper'> 
+      <ion-list>
+          <ion-item>
+            <ion-label>TShirt size S</ion-label>
+            <ion-toggle [(ngModel)]="studentTshirtSizeS"[checked]="false" (ionChange)="myChange(item)"></ion-toggle>
+          </ion-item>
+        
+          <ion-item>
+            <ion-label>T shirt Size M</ion-label>
+            <ion-toggle [(ngModel)]="studentTshirtSizeM" ></ion-toggle>
+          </ion-item>
+        
+          <ion-item>
+            <ion-label>TShirt Size L</ion-label>
+            <ion-toggle [(ngModel)]="studentTshirtSizeL"></ion-toggle>
+          </ion-item>
+          <ion-item>
+              <ion-label>T shirt Size XL</ion-label>
+              <ion-toggle [(ngModel)]="studentTshirtSizeXL" ></ion-toggle>
+          </ion-item>
+          
+            <ion-item>
+              <ion-label>TShirt Size XXL</ion-label>
+              <ion-toggle [(ngModel)]="studentTshirtSizeXXL"></ion-toggle>
+            </ion-item>
+  
+      </ion-list> 
+      </div>
+    -->
+    <ion-row>
+      <ion-col text-center>
+        <ion-button (click)="CreateRecord()" [disabled]="!studentFirstName || !studentLastName || !studentAge || !studentAddress || !studentMobile|| !studentGender">
+          <ion-icon size="small" slot="icon-only" name="add"></ion-icon>
+          &nbsp;Submit
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+ 
+   <!--
+  <ion-card *ngFor="let item of students">
+    <span *ngIf="!item.isEdit; else elseBlock">
+      <ion-card-header>
+        <ion-card-title>{{item.FirstName}} of {{item.Age}} years</ion-card-title>
+        <ion-card-subtitle>From: {{item.Address}}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+ 
+        <ion-button shape="round" color="secondary" size="small" (click)="EditRecord(item)">
+          <ion-icon size="small" slot="icon-only" name="create"></ion-icon>
+ 
+        </ion-button>
+        <ion-button shape="round" color="danger" size="small" (click)="RemoveRecord(item.id)">
+          <ion-icon size="small" slot="icon-only" name="trash"></ion-icon>
+ 
+        </ion-button>
+      </ion-card-content>
+    </span>
+    
+    <ng-template #elseBlock>
+      <ion-card-header>
+        <ion-card-title>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                Edit
+              </ion-col>
+              <ion-col>
+                <ion-button fill="clear" color="medium" size="small" (click)="item.isEdit = false">
+                  Cancel
+                </ion-button>
+              </ion-col>
+              <ion-col>
+                <ion-button fill="outline" color="success" size="small" (click)="UpdateRecord(item)">
+                  Update
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item>
+          <ion-label><strong>Name</strong></ion-label>
+          <ion-input type="text" [(ngModel)]="item.EditFirstName"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label><strong>Age</strong></ion-label>
+          <ion-input type="text" [(ngModel)]="item.EditAge"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label><strong>Address</strong></ion-label>
+          <ion-input type="text" [(ngModel)]="item.EditAddress"></ion-input>
+        </ion-item>
+      </ion-card-content>
+    </ng-template>
+  </ion-card>
+ 
 </ion-content>
+
+-->
